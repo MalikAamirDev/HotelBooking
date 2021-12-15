@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import MButton from "../Components/MButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import NavBar from "./../Components/AppBar/NavBar";
+// import AppBar from "../Components/AppBar";
+import NavBar from './../Components/AppBar/NavBar';
 import { Box } from "@mui/system";
 import { Paper, Typography } from "@mui/material";
 import { db, collection, getDocs } from "../Config/Firebase";
 import { useDispatch } from "react-redux";
 
-export default function Deshboard() {
+
+export default function Deshboard({ currentUser }) {
+  const bookingData = useSelector((state) => state.bookingReducer);
   const getRData = useSelector((state) => state.loginReducer);
   const userStatus = useSelector((user) => user.UserStatusReducer);
   const navigate = useNavigate();
@@ -18,7 +21,10 @@ export default function Deshboard() {
   const [userData, setUserData] = useState([]);
   const dispatch = useDispatch();
 
-  const colRef = collection(db, "Bookings");
+
+
+
+  const colRef = collection(db, "Bookings"); 
   const getData = () => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -32,7 +38,6 @@ export default function Deshboard() {
           bookingData: tempData,
         });
         setUserData(tempData);
-        setLoader(false);
       })
       .catch((err) => {
         console.log(err.message);
@@ -40,13 +45,24 @@ export default function Deshboard() {
   };
 
   useEffect(() => {
-    getData();
+    if (userStatus === true) {
+      setLoader(false);
+    } else {
+      console.log("please login");
+      navigate("/login");
+    }
+    getData()
   }, [navigate, userStatus]);
 
+  console.log(getRData.userData);
+  // console.log(userStatus);
+  // console.log(bookingData);
   const userSignOut = () => {
     const auth = getAuth();
     signOut(auth)
-      .then(() => {})
+      .then(() => {
+        
+      })
       .catch((error) => {
         console.log("user Already Sign out");
       });
@@ -57,40 +73,38 @@ export default function Deshboard() {
         <div class="loader">Loading...</div>
       ) : (
         <>
-          <NavBar />
+        <NavBar/>
           <div>
             <h2>Welcome, {getRData.userData[1].name}</h2>
             <MButton onClick={userSignOut} value="Sign Out" />
           </div>
           <Box
-            component="div"
-            width="100%"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
+          component="div"
+          width='100%'
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
           >
             <Paper
               sx={{
                 py: 3,
-                px: 5,
+                px: 5
               }}
             >
               <Typography variant="h5" color="initial">
-                Your Order Details
+                Profile Info
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                Name: {userData[0].data.name}
+                Name: {getRData.userData[1].name}
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                Contact: {userData[0].data.contact}
+                Contact: {getRData.userData[1].contact}
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                email: {userData[0].data.email}
+                email: {getRData.userData[1].email}
               </Typography>
-              <Typography variant="subtitle2" color="initial">
-                Nights: {userData[0].data.nights}
-              </Typography>
+              
             </Paper>
           </Box>
         </>

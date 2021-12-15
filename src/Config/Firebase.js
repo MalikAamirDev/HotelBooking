@@ -121,6 +121,7 @@ let Booking = (obj, navigate, setLoader, setNotify) => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         const uid = user.uid;
+        setLoader(true)
         obj.uid = uid;
         setDoc(doc(db, "Bookings", uid), obj);
 
