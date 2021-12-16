@@ -1,68 +1,46 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import MButton from "../Components/MButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import AppBar from "../Components/AppBar";
-import NavBar from './../Components/AppBar/NavBar';
+import NavBar from "./../Components/AppBar/NavBar";
 import { Box } from "@mui/system";
 import { Paper, Typography } from "@mui/material";
-import { db, collection, getDocs } from "../Config/Firebase";
+import { db, getDoc, doc } from "../Config/Firebase";
 import { useDispatch } from "react-redux";
+import { getBookingData } from "../Config/Redux/action";
 
-
-export default function Deshboard({ currentUser }) {
-  const bookingData = useSelector((state) => state.bookingReducer);
+export default function Deshboard() {
+  const bookingData = useSelector((state) => state.BookingReducer);
   const getRData = useSelector((state) => state.loginReducer);
   const userStatus = useSelector((user) => user.UserStatusReducer);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
-  const [userData, setUserData] = useState([]);
+  // const [userData, setUserData] = useState([]);
   const dispatch = useDispatch();
 
+  let booking = bookingData.bookingData[1];
 
-
-
-  const colRef = collection(db, "Bookings"); 
+  let uid = getRData.userData[0];
   const getData = () => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        let tempData = [];
-        tempData = snapshot.docs.map((e, i) => ({
-          id: e.id,
-          data: e.data(),
-        }));
-        dispatch({
-          type: "BOOKINGDATA",
-          bookingData: tempData,
-        });
-        setUserData(tempData);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const docRef = doc(db, "Bookings", uid);
+    dispatch(getBookingData(getDoc, docRef, setLoader));
   };
 
   useEffect(() => {
     if (userStatus === true) {
-      setLoader(false);
+      getData();
     } else {
       console.log("please login");
       navigate("/login");
     }
-    getData()
   }, [navigate, userStatus]);
 
-  console.log(getRData.userData);
-  // console.log(userStatus);
-  // console.log(bookingData);
   const userSignOut = () => {
     const auth = getAuth();
     signOut(auth)
-      .then(() => {
-        
-      })
+      .then(() => {})
       .catch((error) => {
         console.log("user Already Sign out");
       });
@@ -73,38 +51,40 @@ export default function Deshboard({ currentUser }) {
         <div class="loader">Loading...</div>
       ) : (
         <>
-        <NavBar/>
+          <NavBar />
           <div>
-            <h2>Welcome, {getRData.userData[1].name}</h2>
+            <h2>Welcome, {booking.name}</h2>
             <MButton onClick={userSignOut} value="Sign Out" />
           </div>
           <Box
-          component="div"
-          width='100%'
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
+            component="div"
+            width="100%"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
             <Paper
               sx={{
                 py: 3,
-                px: 5
+                px: 5,
               }}
             >
               <Typography variant="h5" color="initial">
-                Profile Info
+                Your Booking
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                Name: {getRData.userData[1].name}
+                Name: {booking.name}
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                Contact: {getRData.userData[1].contact}
+                Contact: {booking.contact}
               </Typography>
               <Typography variant="subtitle2" color="initial">
-                email: {getRData.userData[1].email}
+                Nights: {booking.nights}
               </Typography>
-              
+              <Typography variant="subtitle2" color="initial">
+                email: {booking.email}
+              </Typography>
             </Paper>
           </Box>
         </>

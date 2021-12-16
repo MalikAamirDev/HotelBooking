@@ -23,10 +23,10 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { signUp } from "../Config/Firebase";
 import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import NavBar from "../Components/AppBar/NavBar";
+import Notification from "../Components/Notification";
 
-export default function Service({ currentUser }) {
+export default function Service() {
   const userStatus = useSelector((user) => user.UserStatusReducer);
   const [name, setName] = useState("");
   const [contact, setContact] = useState(0);
@@ -37,23 +37,22 @@ export default function Service({ currentUser }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     if (userStatus) {
-      navigate("/deshboard");
+      navigate("/");
       console.log("Already Signed in");
     } else {
       console.log("Please SignUp");
     }
   }, [navigate, userStatus]);
-  console.log(userStatus, currentUser);
+  console.log(userStatus);
 
   const formData = (e) => {
     e.preventDefault();
@@ -68,7 +67,7 @@ export default function Service({ currentUser }) {
     };
     console.log(obj);
     setLoader(true);
-    dispatch(signUp(obj, navigate, setLoader));
+    dispatch(signUp(obj, navigate, setLoader, setNotify));
   };
   return (
     <div>
@@ -95,21 +94,14 @@ export default function Service({ currentUser }) {
                 <Box
                   component="form"
                   align="start"
-                  onSubmit={(e) => handleSubmit(formData(e))}
+                  onSubmit={(e) => formData(e)}
                 >
-                  {/* <form  > */}
                   <TextField
                     style={{ marginTop: 50 }}
                     margin="dense"
                     fullWidth
-                    // required
                     name="name"
                     id="name"
-                    {...register("name", {
-                      required: "Name is required.",
-                    })}
-                    error={Boolean(errors.firstName)}
-                    helperText={errors.firstName?.message}
                     label="Name"
                     value={name}
                     type="text"
@@ -268,6 +260,7 @@ export default function Service({ currentUser }) {
                 </Box>
               </Grid>
             </Paper>
+            <Notification notify={notify} setNotify={setNotify} />
           </Grid>
         </>
       )}

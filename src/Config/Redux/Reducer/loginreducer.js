@@ -4,10 +4,9 @@ const INITIAL_STATE = {
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
-  console.log(action.userData);
   switch (action.type) {
     case "LOGIN":
-      return { ...state, userData: action.userData }; 
+      return { ...state, userData: action.userData };
     default:
       return state;
   }

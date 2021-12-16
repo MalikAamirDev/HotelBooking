@@ -6,6 +6,7 @@ import { db, collection, getDocs } from "../Config/Firebase";
 import NavBar from "../Components/AppBar/NavBar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Notification from "../Components/Notification";
 
 export default function Profile() {
   const userStatus = useSelector((user) => user.UserStatusReducer);
@@ -13,6 +14,11 @@ export default function Profile() {
   const [userData, setUserData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const move = () => {
     navigate("/listings");
@@ -34,7 +40,11 @@ export default function Profile() {
         setUserData(tempData);
       })
       .catch((err) => {
-        console.log(err.message);
+        setNotify({
+          isOpen: true,
+          message: `${[err.message]} please check email & password`,
+          type: "error",
+        });
       });
   };
 
@@ -44,22 +54,22 @@ export default function Profile() {
       adminUid.userData[0] === "ZCJOXpL3puN64Gv7zF07JPTZDEX2"
     ) {
       navigate("/deshboard");
-      console.log("admin Loged in", adminUid[0]);
     } else if (userStatus === true) {
       navigate("/profile");
-      console.log("user logedin", adminUid);
     } else {
-      console.log("Please Signin", userStatus);
+      navigate("/login");
     }
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       <NavBar />
-      <Button onClick={move} variant="text" color="primary">
+      <Button sx={{ mt: 5 }} onClick={move} variant="outlined" color="primary">
         Add Listings
       </Button>
       <MTable userData={userData} />
+      <Notification notify={notify} setNotify={setNotify} />
     </>
   );
 }

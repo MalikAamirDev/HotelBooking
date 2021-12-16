@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import {
   Avatar,
@@ -9,31 +9,23 @@ import {
 } from "@mui/material";
 
 import { Box } from "@mui/system";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MButton from "../Components/MButton";
-import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import NavBar from "../Components/AppBar/NavBar";
 import { Booking } from "../Config/Firebase";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import Notification from "../Components/Notification";
 
 export default function Service() {
-  const userStatus = useSelector((user) => user.UserStatusReducer);
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [rooms, setRooms] = useState("");
   const [nights, setNights] = useState(1);
-  const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [notify, setNotify] = useState({
@@ -49,13 +41,13 @@ export default function Service() {
     const obj = {
       name,
       contact,
+      rooms,
       nights,
-      address,
       email,
     };
-    console.log(obj);
-    dispatch(Booking(obj, navigate));
+    dispatch(Booking(obj, navigate, setLoader, setNotify));
   };
+
   return (
     <div>
       <NavBar />

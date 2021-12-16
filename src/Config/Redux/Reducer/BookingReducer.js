@@ -1,12 +1,12 @@
 const INITIAL_STATE = {
-  label: "Hotel Listings Here",
-  hotelListngs: [],
+  label: "Booking Data Here",
+  bookingData: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "LISTINGDATA":
-      return { ...state, hotelListngs: action.hotelListngs };
+    case "GETBOOKINGDATA":
+      return { ...state, bookingData: action.bookingData };
     default:
       return state;
   }

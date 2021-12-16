@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import Notification from "../Components/Notification";
 import NavBar from "../Components/AppBar/NavBar";
 
-export default function Login({ currentUser }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -30,11 +30,9 @@ export default function Login({ currentUser }) {
   useEffect(() => {
     if (userStatus === true && adminUid[0] === "ZCJOXpL3puN64Gv7zF07JPTZDEX2") {
       navigate("/deshboard");
-      console.log("Already Logged in", userStatus, adminUid[0]);
     } else if (userStatus === true) {
       navigate("/profile");
     } else {
-      console.log("Please Signin", userStatus);
       setLoader(false);
     }
   }, [userStatus, navigate, adminUid]);
@@ -45,7 +43,6 @@ export default function Login({ currentUser }) {
       email,
       password,
     };
-    console.log(obj);
     setLoader(true);
     dispatch(userLogin(obj, navigate, setLoader, setNotify));
   };

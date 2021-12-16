@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import loginReducer from "../Redux/Reducer/loginreducer";
+import BookingReducer from "../Redux/Reducer/BookingReducer";
 import signUpReducer from "../Redux/Reducer/signupreducer";
 import AllUsersReducer from "../Redux/Reducer/AllUsersReducer";
 import UserStatusReducer from "../Redux/Reducer/UserStatusReducer";
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   signUpReducer,
   UserStatusReducer,
   hotelListReducer,
+  BookingReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

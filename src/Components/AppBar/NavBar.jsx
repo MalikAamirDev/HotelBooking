@@ -18,7 +18,6 @@ const NavBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  console.log(matches);
   const move = () => {
     navigete("/booking");
   };
@@ -63,54 +62,45 @@ const NavBar = () => {
                   component="div"
                   sx={{
                     display: "flex",
-                    flexDirection: 'row',
-                    justifyContent: 'space-around'
+                    flexDirection: "row",
+                    justifyContent: "space-around",
                   }}
                 >
-                  <Stack
-                  direction="row" spacing={2}
-                  >
-                  <Typography sx={{cursor: "pointer" }}>
-                    <Link
-                      style={{ textDecoration: "none", color: "#616161" }}
-                      to="/"
-                    >
-                      Home
-                    </Link>
-                  </Typography>
-                  <Typography
-                    sx={{cursor: "pointer", color: "#616161" }}
-                  >
-                    <Link
-                      style={{ textDecoration: "none", color: "#616161" }}
-                      to="/booking"
-                    >
-                      Booking
-                    </Link>
-                  </Typography>
-                  <Typography
-                    sx={{ cursor: "pointer", color: "#616161" }}
-                  >
-                    <Link
-                      style={{ textDecoration: "none", color: "#616161" }}
-                      to="/deshboard"
-                    >
-                      Deshboard
-                    </Link>
-                  </Typography>
-                  <Typography
-                    sx={{ cursor: "pointer", color: "#616161" }}
-                  >
-                    <Link
-                      style={{ textDecoration: "none", color: "#616161" }}
-                      to="/profile"
-                    >
-                      Profile
-                    </Link>
-                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <Typography sx={{ cursor: "pointer" }}>
+                      <Link
+                        style={{ textDecoration: "none", color: "#616161" }}
+                        to="/"
+                      >
+                        Home
+                      </Link>
+                    </Typography>
+                    <Typography sx={{ cursor: "pointer", color: "#616161" }}>
+                      <Link
+                        style={{ textDecoration: "none", color: "#616161" }}
+                        to="/booking"
+                      >
+                        Booking
+                      </Link>
+                    </Typography>
+                    <Typography sx={{ cursor: "pointer", color: "#616161" }}>
+                      <Link
+                        style={{ textDecoration: "none", color: "#616161" }}
+                        to="/deshboard"
+                      >
+                        Deshboard
+                      </Link>
+                    </Typography>
+                    <Typography sx={{ cursor: "pointer", color: "#616161" }}>
+                      <Link
+                        style={{ textDecoration: "none", color: "#616161" }}
+                        to="/profile"
+                      >
+                        Profile
+                      </Link>
+                    </Typography>
                   </Stack>
                 </Box>
-                
               </>
             )}
             <Box

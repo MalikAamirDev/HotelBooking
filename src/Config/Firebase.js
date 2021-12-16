@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
-import ErrorAlert from "../assets/ErrorAlert";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -12,18 +11,15 @@ import {
 import {
   getFirestore,
   collection,
-  getDoc, // For getting single document data by his id
-  getDocs, // get collection all documents
-  addDoc, // add data to firebase
+  getDoc,
+  getDocs,
+  addDoc,
   deleteDoc,
-  doc, // delete data
-  updateDoc, // for updating the exsisting document
-  setDoc, // for adding new data to an existing collection
+  doc,
+  updateDoc,
+  setDoc,
 } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAiIPg-KgJzwQH-SsBWOoSh0mvhyJaYaR8",
   authDomain: "jpakhackathon.firebaseapp.com",
@@ -36,7 +32,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore();
 
@@ -51,13 +47,11 @@ let userLogin = (obj, navigate, setloader, setNotify) => {
           .then((singleDoc) => {
             let userData = [singleDoc.id, singleDoc.data()];
 
-            console.log(userData);
             dispatch({
               type: "LOGIN",
               userData: userData,
             });
             if (uid === "ZCJOXpL3puN64Gv7zF07JPTZDEX2") {
-              console.log("admin LOged in", uid);
               navigate("/deshboard");
               setloader(false);
             } else {
@@ -66,19 +60,17 @@ let userLogin = (obj, navigate, setloader, setNotify) => {
                 message: "Loggedin Successfull",
                 type: "error",
               });
-              console.log("user LOged in", uid);
               navigate("/");
               setloader(false);
             }
           })
           .catch((err) => {
-            console.log(err.message);
+            // console.log(err.message);
           });
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage, errorCode);
+        // const errorMessage = error.message;
         setNotify({
           isOpen: true,
           message: `${[errorCode]} please check email & password`,
@@ -97,21 +89,23 @@ let signUp = (obj, navigate, setLoader, setNotify) => {
         obj.uid = uid;
         setDoc(doc(db, "Users", uid), obj);
 
-        console.log(uid, user);
         dispatch({
           type: "SIGNUPDATA",
           uid: uid,
           email: user.email,
         });
-        console.log("New Data Added");
         navigate("/");
         setLoader(false);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // ..
+        // const errorMessage = error.message;
+        setLoader(false);
+        setNotify({
+          isOpen: true,
+          message: `${[errorCode]} please check email & password`,
+          type: "error",
+        });
       });
   };
 };
@@ -121,25 +115,28 @@ let Booking = (obj, navigate, setLoader, setNotify) => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         const uid = user.uid;
-        setLoader(true)
+        setLoader(true);
         obj.uid = uid;
         setDoc(doc(db, "Bookings", uid), obj);
-
-        console.log(uid, user);
         dispatch({
           type: "BOOKINGDATA",
           uid: uid,
           bookingData: obj,
+          bookingStatus: true,
         });
         setNotify({
           isOpen: true,
           message: "Submited Successfull",
-          type: "error",
+          type: "success",
         });
-        console.log("New Data Added");
         navigate("/profile");
       } else {
         alert("Error");
+        setNotify({
+          isOpen: true,
+          message: "please fill all fields",
+          type: "error",
+        });
       }
     });
   };
@@ -151,14 +148,11 @@ let ListingData = (obj, navigate, setLoader, setNotify) => {
         const uid = user.uid;
         obj.uid = uid;
         setDoc(doc(db, "Hotels", uid), obj);
-
-        console.log(uid, user);
         dispatch({
           type: "LISTINGDATA",
           uid: uid,
           bookingData: obj,
         });
-        console.log("New Data Added");
         navigate("/profile");
       } else {
         alert("Error");
@@ -170,9 +164,7 @@ let ListingData = (obj, navigate, setLoader, setNotify) => {
 let userSignOut = () => {
   const auth = getAuth();
   signOut(auth)
-    .then(() => {
-      console.log("Sign Out Successful");
-    })
+    .then(() => {})
     .catch((error) => {});
 };
 

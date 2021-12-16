@@ -1,38 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import {
-  Avatar,
-  Paper,
-  Typography,
-  TextField,
-  FormControl,
-} from "@mui/material";
+import { Avatar, Paper, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
 import MButton from "../Components/MButton";
-import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import NavBar from "../Components/AppBar/NavBar";
 import { ListingData } from "../Config/Firebase";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 export default function BookingListingForm() {
-  // const userStatus = useSelector((user) => user.UserStatusReducer);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // const [loader, setLoader] = useState(false);
 
   const formData = (e) => {
     e.preventDefault();

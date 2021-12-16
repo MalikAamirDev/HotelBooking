@@ -14,27 +14,24 @@ const gethotelListings = (getDocs, colRef) => {
         });
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       });
   };
 };
-const getBookingData = (getDocs, bookingRef) => {
-  return (dispatch) => {
-    getDocs(bookingRef)
-      .then((snapshot) => {
-        let bookings = [];
 
-        bookings = snapshot.docs.map((pData) => ({
-          id: pData.id,
-          product: pData.data(),
-        }));
+const getBookingData = (getDoc, docRef, setLoader) => {
+  return (dispatch) => {
+    getDoc(docRef)
+      .then((singleDoc) => {
+        let booking = [singleDoc.id, singleDoc.data()];
         dispatch({
-          type: "BOOKINGDATA",
-          bookingData: bookings,
+          type: "GETBOOKINGDATA",
+          bookingData: booking,
         });
+        setLoader(false);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       });
   };
 };
