@@ -29,7 +29,7 @@ import Notification from "../Components/Notification";
 export default function Service() {
   const userStatus = useSelector((user) => user.UserStatusReducer);
   const [name, setName] = useState("");
-  const [contact, setContact] = useState(0);
+  const [contact, setContact] = useState("");
   const [gender, setGender] = useState("");
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
@@ -116,7 +116,7 @@ export default function Service() {
                     label="Contact"
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                     value={contact}
-                    type="number"
+                    type="text"
                     size="small"
                     onChange={(e) => setContact(e.target.value)}
                   />
