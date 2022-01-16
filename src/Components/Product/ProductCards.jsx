@@ -15,13 +15,11 @@ export default function ProductCard({
   image,
   id,
 }) {
-
   const navigate = useNavigate();
 
-  const handleBooking = ()=>{
-    navigate('/booking')
-  }
-
+  const handleBooking = () => {
+    navigate("/booking");
+  };
 
   return (
     <Card
@@ -37,7 +35,7 @@ export default function ProductCard({
       <CardMedia
         component="img"
         height="200"
-        sx={{ objectFit: "cover", m: 0, p: 0}}
+        sx={{ objectFit: "cover", m: 0, p: 0 }}
         image={image}
         alt={title}
       />
@@ -57,22 +55,24 @@ export default function ProductCard({
         </Typography>
       </CardContent>
       <CardActions
-        width= '100%'
+        width="100%"
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        
       >
         <Button
           variant="text"
           onClick={handleBooking}
-          sx={{ px: 5, background: "#ef3f49", color: "white" ,
-          ':hover': {
-            background: "#bc1019",
-          }
-        }}
+          sx={{
+            px: 5,
+            background: "#ef3f49",
+            color: "white",
+            ":hover": {
+              background: "#bc1019",
+            },
+          }}
         >
           Book Now
         </Button>

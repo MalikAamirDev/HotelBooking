@@ -1,7 +1,7 @@
 import {
   Home,
   Profile,
-  Deshboard,
+  Dashboard as Dashboard,
   Login,
   SignUp,
   BookingForm,
@@ -17,7 +17,7 @@ export default function AppRouter({ currentUser }) {
         <div>
           <Routes>
             <Route element={<ProtectedRoute currentUser={currentUser} />}>
-              <Route path="/deshboard" element={<Deshboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/booking" element={<BookingForm />} />
               <Route path="/listings" element={<BookingListingForm />} />

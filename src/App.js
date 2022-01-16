@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
 
-  const checkUserStatus = async () => {
+  const checkUserStatus = () => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         const uid = user.uid;
@@ -29,7 +29,7 @@ function App() {
             });
           })
           .catch((err) => {
-            // console.log(err.message);
+            console.log(err.message);
           });
       } else {
         setcurrentUser(false);
@@ -52,7 +52,7 @@ function App() {
       {loader ? (
         <>
           <div className="loaderDiv">
-            <div class="loader">Loading...</div>
+            <div className="loader">Loading...</div>
           </div>
         </>
       ) : (

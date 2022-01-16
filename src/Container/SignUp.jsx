@@ -73,7 +73,7 @@ export default function Service() {
     <div>
       <NavBar />
       {loader ? (
-        <div class="loader">Loading...</div>
+        <div className="loader">Loading...</div>
       ) : (
         <>
           <Grid container spacing={0}>

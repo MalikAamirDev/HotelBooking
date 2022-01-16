@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../Components/AppBar/NavBar";
 import { collection, getDocs, db } from "../Config/Firebase";
 import ProductCard from "../Components/Product/ProductCards";
@@ -6,20 +6,19 @@ import { Box } from "@mui/system";
 import MuiHeader from "../Components/MuiHeader/MuiHeader";
 import { gethotelListings } from "../Config/Redux/action";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../Components/footer";
 
 export default function Home() {
   const hotelsData = useSelector((state) => state.hotelListReducer);
   const dispatch = useDispatch();
 
-  const listing = hotelsData.hotelListngs;
-
+  let listing = hotelsData.hotelListingData;
   const colRef = collection(db, "Hotels");
   const getData = () => {
-    dispatch(gethotelListings(getDocs, colRef, dispatch));
+    dispatch(gethotelListings(getDocs, colRef));
   };
   useEffect(() => {
     getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -36,16 +35,19 @@ export default function Home() {
         }}
       >
         {listing.map((data, i) => (
-          <ProductCard
-            title={data.product.name}
-            price={data.product.price}
-            ratting={data.product.rating}
-            image={data.product.image}
-            description={data.product.description}
-            id={data.id}
-          />
+          <Box key={i}>
+            <ProductCard
+              title={data.product.name}
+              price={data.product.price}
+              ratting={data.product.rating}
+              image={data.product.image}
+              description={data.product.description}
+              id={data.id}
+            />
+          </Box>
         ))}
       </Box>
+      <Footer />
     </>
   );
 }

@@ -7,8 +7,9 @@ import NavBar from "../Components/AppBar/NavBar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Notification from "../Components/Notification";
+import Footer from "../Components/footer";
 
-export default function Profile() {
+export default function Dashboard() {
   const userStatus = useSelector((user) => user.UserStatusReducer);
   const adminUid = useSelector((user) => user.loginReducer);
   const [userData, setUserData] = useState([]);
@@ -53,7 +54,7 @@ export default function Profile() {
       userStatus === true &&
       adminUid.userData[0] === "ZCJOXpL3puN64Gv7zF07JPTZDEX2"
     ) {
-      navigate("/deshboard");
+      navigate("/dashboard");
     } else if (userStatus === true) {
       navigate("/profile");
     } else {
@@ -70,6 +71,7 @@ export default function Profile() {
       </Button>
       <MTable userData={userData} />
       <Notification notify={notify} setNotify={setNotify} />
+      <Footer />
     </>
   );
 }

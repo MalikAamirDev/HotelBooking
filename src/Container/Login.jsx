@@ -29,7 +29,7 @@ export default function Login() {
 
   useEffect(() => {
     if (userStatus === true && adminUid[0] === "ZCJOXpL3puN64Gv7zF07JPTZDEX2") {
-      navigate("/deshboard");
+      navigate("/dashboard");
     } else if (userStatus === true) {
       navigate("/profile");
     } else {
@@ -51,7 +51,7 @@ export default function Login() {
     <div>
       {loader ? (
         <>
-          <div class="loader">Loading...</div>
+          <div className="loader">Loading...</div>
         </>
       ) : (
         <>

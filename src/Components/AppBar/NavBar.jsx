@@ -86,9 +86,9 @@ const NavBar = () => {
                     <Typography sx={{ cursor: "pointer", color: "#616161" }}>
                       <Link
                         style={{ textDecoration: "none", color: "#616161" }}
-                        to="/deshboard"
+                        to="/dashboard"
                       >
-                        Deshboard
+                        Dashboard
                       </Link>
                     </Typography>
                     <Typography sx={{ cursor: "pointer", color: "#616161" }}>

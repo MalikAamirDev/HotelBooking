@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import NavBar from "../Components/AppBar/NavBar";
 import { ListingData } from "../Config/Firebase";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import Notification from "../Components/Notification";
 
 export default function BookingListingForm() {
   const [name, setName] = useState("");
@@ -16,6 +17,11 @@ export default function BookingListingForm() {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const formData = (e) => {
     e.preventDefault();
@@ -25,7 +31,7 @@ export default function BookingListingForm() {
       description,
       image,
     };
-    dispatch(ListingData(obj, navigate));
+    dispatch(ListingData(obj, navigate, setNotify));
   };
   return (
     <div>
@@ -107,6 +113,7 @@ export default function BookingListingForm() {
           </Grid>
         </Paper>
       </Grid>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

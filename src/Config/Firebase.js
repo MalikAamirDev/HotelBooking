@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -65,12 +66,12 @@ let userLogin = (obj, navigate, setloader, setNotify) => {
             }
           })
           .catch((err) => {
-            // console.log(err.message);
+            console.log(err.message);
           });
       })
       .catch((error) => {
         const errorCode = error.code;
-        // const errorMessage = error.message;
+        const errorMessage = error.message;
         setNotify({
           isOpen: true,
           message: `${[errorCode]} please check email & password`,
@@ -141,19 +142,33 @@ let Booking = (obj, navigate, setLoader, setNotify) => {
     });
   };
 };
-let ListingData = (obj, navigate, setLoader, setNotify) => {
+let ListingData = (obj, navigate, setNotify) => {
   return (dispatch) => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         const uid = user.uid;
         obj.uid = uid;
-        setDoc(doc(db, "Hotels", uid), obj);
-        dispatch({
-          type: "LISTINGDATA",
-          uid: uid,
-          bookingData: obj,
-        });
-        navigate("/profile");
+        const colRef = collection(db, "Hotels");
+        addDoc(colRef, obj)
+          .then(() => {
+            // dispatch({
+            //   type: "LISTINGDATA",
+            //   hotelListngs: obj,
+            // });
+            console.log(obj, "Added SuccessFully");
+            setNotify({
+              isOpen: true,
+              message: "Listing Added",
+              type: "success",
+            });
+            navigate("/dashboard");
+          })
+          .catch((err) => {
+            console.log(err.message);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
       } else {
         alert("Error");
       }
@@ -188,4 +203,5 @@ export {
   updateDoc,
   setDoc,
   ListingData,
+  sendPasswordResetEmail,
 };

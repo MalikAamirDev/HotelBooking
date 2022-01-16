@@ -3,7 +3,6 @@ const gethotelListings = (getDocs, colRef) => {
     getDocs(colRef)
       .then((snapshot) => {
         let listings = [];
-
         listings = snapshot.docs.map((pData) => ({
           id: pData.id,
           product: pData.data(),
@@ -14,7 +13,7 @@ const gethotelListings = (getDocs, colRef) => {
         });
       })
       .catch((err) => {
-        // console.log(err.message);
+        console.log(err.message);
       });
   };
 };
@@ -31,7 +30,7 @@ const getBookingData = (getDoc, docRef, setLoader) => {
         setLoader(false);
       })
       .catch((err) => {
-        // console.log(err.message);
+        console.log(err.message);
       });
   };
 };
