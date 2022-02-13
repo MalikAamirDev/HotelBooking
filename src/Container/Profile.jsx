@@ -26,7 +26,6 @@ export default function Profile() {
   const [loader, setLoader] = useState(true);
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -57,6 +56,7 @@ export default function Profile() {
       console.log("please login");
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, userStatus]);
 
   const auth = getAuth();
@@ -113,7 +113,7 @@ export default function Profile() {
 
   return (
     <>
-      <Box>
+      <Box sx={{ backgroundColor: "#F2ffff", height: "94vh", width: "100%" }}>
         {loader ? (
           <div className="loader">Loading...</div>
         ) : (
@@ -169,7 +169,7 @@ export default function Profile() {
                     onChange={handleChange}
                     aria-label="basic tabs example"
                   >
-                    <Tab label="Dashboard" />
+                    <Tab label="Bookings" />
                     <Tab label="Account" />
                   </Tabs>
                   <TabPanel value={value} index={0}>
@@ -248,7 +248,7 @@ export default function Profile() {
                           <h2>You don't have any bookings yut</h2>
                           <MButton
                             onClick={() => navigate("/")}
-                            value="View Bookings"
+                            value="View Rooms"
                             sx={{
                               color: "#f9f9f9",
                               fontSize: "14px",

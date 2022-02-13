@@ -5,7 +5,6 @@ import { Box } from "@mui/system";
 import MButton from "../Components/MButton";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import NavBar from "../Components/AppBar/NavBar";
 import { ListingData } from "../Config/Firebase";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import Notification from "../Components/Notification";
@@ -35,7 +34,7 @@ export default function BookingListingForm() {
   };
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
       <Grid container spacing={0}>
         <Paper
           elevation={3}

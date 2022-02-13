@@ -14,12 +14,11 @@ import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [openDrawer, setOpenDrawer] = useState();
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const move = () => {
-    navigete("/booking");
+    navigate("/booking");
   };
   return (
     <>
@@ -27,7 +26,11 @@ const NavBar = () => {
         position="static"
         width="100%"
         elevation={0}
-        sx={{ background: "white", borderBottom: "1px solid #ddddddf8" }}
+        sx={{
+          background: "white",
+          borderRadius: "0 0 20px 20px",
+          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        }}
       >
         <Toolbar>
           <Box
@@ -44,7 +47,7 @@ const NavBar = () => {
                 width="100px"
                 sx={{ cursor: "pointer" }}
                 component="img"
-                onClick={() => navigete("/")}
+                onClick={() => navigate("/")}
                 alt="banner"
                 src={
                   "https://firebasestorage.googleapis.com/v0/b/jpakhackathon.appspot.com/o/zante.svg?alt=media&token=d9647b95-9c69-4fc5-a970-bb3b6d61f645"
@@ -112,15 +115,23 @@ const NavBar = () => {
             >
               <Button
                 sx={{
-                  background: "#ef3f49",
+                  background: "primary",
+                  color: "primary.text",
                   ":hover": {
-                    background: "#bc1019",
+                    background: "var(--hover)",
+                  },
+                  px: 5,
+                  py: 1.5,
+                  borderRadius: 10,
+                  letterSpacing: "2px",
+                  [theme.breakpoints.down("md")]: {
+                    display: "none",
                   },
                 }}
-                disableElevation
+                // disableElevation
                 onClick={move}
                 variant="contained"
-                color="primary"
+                // color="secondary"
                 startIcon={<EventAvailableIcon />}
               >
                 Book Online

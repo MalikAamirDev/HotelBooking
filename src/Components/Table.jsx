@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -33,8 +33,8 @@ const useStyle = makeStyles((theme) => ({
 
 export default function MTable({ userData }) {
   const classes = useStyle();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -59,17 +59,14 @@ export default function MTable({ userData }) {
         }}
       >
         <Box>
-          <Typography variant="h5">Bookings</Typography>
+          <Typography variant="h4">All Bookings</Typography>
         </Box>
         <TableContainer
-          sx={{ pt: 2 }}
+          // sx={{ pt: 2 }}
           component={Paper}
           className={classes.tableContainer}
         >
-          <Table
-            sx={{ minWidth: 800, overflow: "hidden" }}
-            aria-label="simple table"
-          >
+          <Table sx={{ width: "100%" }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell

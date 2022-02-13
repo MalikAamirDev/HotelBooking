@@ -24,27 +24,31 @@ export default function ProductCard({
   return (
     <Card
       sx={{
-        minWidth: 345,
-        maxWidth: 345,
-        maxHeight: 400,
+        Width: 350,
+        maxWidth: 350,
+        Height: 400,
         minHeight: 400,
-        pb: 4,
+        p: 1,
+        pb: 2,
         m: 2,
+        borderRadius: 2.5,
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       }}
+      elevation={0}
     >
       <CardMedia
         component="img"
-        height="200"
-        sx={{ objectFit: "cover", m: 0, p: 0 }}
+        height="242px"
+        sx={{ objectFit: "cover", m: 0, p: 0, borderRadius: 1.5 }}
         image={image}
         alt={title}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" fontWeight={600} component="div">
           {title}
         </Typography>
         <Typography
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: 600, color: "#64BC5F" }}
           variant="h6"
           color="text.secondary"
         >
@@ -63,14 +67,20 @@ export default function ProductCard({
         }}
       >
         <Button
-          variant="text"
           onClick={handleBooking}
+          disableElevation
+          variant="contained"
+          color="primary"
           sx={{
+            width: "200px",
             px: 5,
-            background: "#ef3f49",
-            color: "white",
-            ":hover": {
-              background: "#bc1019",
+            py: 1.5,
+            borderRadius: 10,
+            letterSpacing: "2px",
+            textTransform: "none",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+            ":hover ": {
+              backgroundColor: "var(--hover)",
             },
           }}
         >

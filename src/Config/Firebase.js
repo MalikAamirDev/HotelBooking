@@ -53,7 +53,7 @@ let userLogin = (obj, navigate, setloader, setNotify) => {
               userData: userData,
             });
             if (uid === "ZCJOXpL3puN64Gv7zF07JPTZDEX2") {
-              navigate("/deshboard");
+              navigate("/dashboard");
               setloader(false);
             } else {
               setNotify({
@@ -71,7 +71,7 @@ let userLogin = (obj, navigate, setloader, setNotify) => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorMessage = error.message;
         setNotify({
           isOpen: true,
           message: `${[errorCode]} please check email & password`,

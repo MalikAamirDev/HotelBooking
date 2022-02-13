@@ -3,6 +3,7 @@ import AppRouter from "./Config/router/router";
 import { auth, onAuthStateChanged, getDoc, doc, db } from "./Config/Firebase";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(false);
@@ -47,6 +48,23 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ef3f49",
+      },
+      secondary: {
+        main: "#ff9800",
+      },
+      info: {
+        main: "#2196f3",
+      },
+    },
+    typography: {
+      fontFamily: '"Jost", sans-serif',
+    },
+  });
+
   return (
     <div className="App">
       {loader ? (
@@ -57,7 +75,9 @@ function App() {
         </>
       ) : (
         <>
-          <AppRouter currentUser={currentUser} />
+          <ThemeProvider theme={theme}>
+            <AppRouter currentUser={currentUser} />
+          </ThemeProvider>
         </>
       )}
     </div>

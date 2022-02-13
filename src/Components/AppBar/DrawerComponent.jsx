@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Drawer,
   IconButton,
@@ -7,13 +7,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
   const navigate = useNavigate();
   return (
-    <Drawer anchor="right" open={openDrawer}>
+    <Drawer anchor="right" open={openDrawer} sx={{ width: 400 }}>
       <List>
         <ListItem divider>
           <IconButton
@@ -53,6 +55,28 @@ const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
               Profile
             </ListItemText>
           </ListItemIcon>
+        </ListItem>
+        <ListItem>
+          <Button
+            sx={{
+              background: "primary",
+              color: "primary.text",
+              ":hover": {
+                background: "var(--hover)",
+              },
+              px: 5,
+              py: 1.5,
+              borderRadius: 10,
+              letterSpacing: "2px",
+            }}
+            // disableElevation
+            onClick={() => navigate("/booking")}
+            variant="contained"
+            // color="secondary"
+            startIcon={<EventAvailableIcon />}
+          >
+            Book Online
+          </Button>
         </ListItem>
       </List>
     </Drawer>

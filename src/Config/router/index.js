@@ -9,7 +9,7 @@ import BookingListingForm from "../../Container/BookingListingForm";
 export {
   Home,
   Profile,
-  Dashboard as Dashboard,
+  Dashboard,
   Login,
   SignUp,
   BookingForm,
